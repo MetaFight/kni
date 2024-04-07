@@ -14,7 +14,7 @@
   <PropertyGroup>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>5</LangVersion>
+    <LangVersion>8</LangVersion>
     <AssemblyName>Monogame.Framework</AssemblyName>
     <RootNamespace>Microsoft.Xna.Framework</RootNamespace>
     <DefineConstants></DefineConstants>
@@ -27,7 +27,19 @@
     <Company>MonoGame Team, Kastellanos Nikos</Company>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <LangVersion>8.0</LangVersion>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>8.0</LangVersion>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\..\nkast.wasm\Wasm.Canvas\Wasm.Canvas.csproj" />
+    <ProjectReference Include="..\..\nkast.wasm\Wasm.Dom\Wasm.Dom.csproj" />
     <ProjectReference Include="..\src\Xna.Framework\Xna.Framework.csproj">
       <Project>{741B4B1E-89E4-434C-8867-6129838AFD51}</Project>
       <Name>Xna.Framework</Name>
@@ -75,14 +87,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="nkast.Wasm.Audio" Version="6.0.3" />
-    <PackageReference Include="nkast.Wasm.Canvas" Version="6.0.3" />
-    <PackageReference Include="nkast.Wasm.Dom" Version="6.0.3" />
+    <!--<PackageReference Include="nkast.Wasm.Dom" Version="6.0.3" />-->
     <PackageReference Include="nkast.Wasm.XHR" Version="6.0.3" />
+    <PackageReference Include="Toolbelt.Blazor.Gamepad" Version="8.0.0.1" />
   </ItemGroup>
 
   <Import Project="Blazor.targets" />

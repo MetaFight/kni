@@ -80,11 +80,11 @@ namespace Microsoft.Xna.Framework
 
         public override bool AllowAltF4
         {
-             get { return base.AllowAltF4; }
-             set
-             {
-                 base.AllowAltF4 = value;
-             }
+            get { return base.AllowAltF4; }
+            set
+            {
+                base.AllowAltF4 = value;
+            }
         }
 
         public override DisplayOrientation CurrentOrientation
@@ -175,12 +175,12 @@ namespace Microsoft.Xna.Framework
             //  Form.ResizeEnd += OnResizeEnd;
             _window.OnResize += OnResize;
 
-           // Form.KeyPress += OnKeyPress;
+            // Form.KeyPress += OnKeyPress;
         }
 
         private void SetIcon()
         {
-          
+
         }
 
         ~BlazorGameWindow()
@@ -196,7 +196,7 @@ namespace Microsoft.Xna.Framework
 
         private void OnDeactivate(object sender, EventArgs eventArgs)
         {
-        
+
         }
 
 
@@ -235,11 +235,12 @@ namespace Microsoft.Xna.Framework
                 if (!pp.HardwareModeSwitch)
                     _concreteGame.GraphicsDevice.OnPresentationChanged();
             }
+
+            UpdateBackBufferSize();
         }
 
         internal void OnResize(object sender)
         {
-
             UpdateBackBufferSize();
 
             OnClientSizeChanged();
@@ -252,10 +253,25 @@ namespace Microsoft.Xna.Framework
             if (gdm.GraphicsDevice == null)
                 return;
 
-            _canvas.Width = _window.InnerWidth;
-            _canvas.Height = _window.InnerHeight;
-            Size newSize = new Size(_canvas.Width, _canvas.Height);
-            if(newSize.Width == gdm.PreferredBackBufferWidth &&
+
+            Size gameSize = new Size(22 * 16, 15 * 16);
+
+            var pixelScale =
+                (int)Math.Max(
+                    1,
+                    MathF.Floor(Math.Min(
+                        (float)_window.InnerWidth / gameSize.Width,
+                        (float)_window.InnerHeight / gameSize.Height)));
+
+            //_canvas.Style = $"--scale:{pixelScale}";
+            //pixelScale = 1;
+
+            Size newSize = new Size(gameSize.Width * pixelScale, gameSize.Height * pixelScale);
+
+            _canvas.Width = newSize.Width;
+            _canvas.Height = newSize.Height;
+
+            if (newSize.Width == gdm.PreferredBackBufferWidth &&
                newSize.Height == gdm.PreferredBackBufferHeight)
                 return;
 
@@ -300,7 +316,7 @@ namespace Microsoft.Xna.Framework
         {
             if (disposing)
             {
-               
+
             }
 
             _instances.Remove(this.Handle);
@@ -332,10 +348,10 @@ namespace Microsoft.Xna.Framework
             var raiseClientSizeChanged = false;
             if (pp.IsFullScreen && pp.HardwareModeSwitch && IsFullScreen && HardwareModeSwitch)
             {
-                if(_concreteGame.IsActive)
+                if (_concreteGame.IsActive)
                 {
                     // stay in hardware full screen, need to call ResizeTargets so the displaymode can be switched
-                   // _concreteGame.GraphicsDevice.ResizeTargets();
+                    // _concreteGame.GraphicsDevice.ResizeTargets();
                 }
                 else
                 {
@@ -371,12 +387,12 @@ namespace Microsoft.Xna.Framework
 
         private void ExitFullScreen()
         {
-           
+
         }
 
         private void MinimizeFullScreen()
         {
-         
+
         }
     }
 }
