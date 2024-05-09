@@ -244,7 +244,7 @@
       <Name>Xna.Framework</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Xna.Framework.Content.Pipeline\Xna.Framework.Content.Pipeline.csproj">
+    <ProjectReference Include="..\Xna.Framework.Content.Pipeline\XNA.Framework.Content.Pipeline.csproj">
       <Project>{73509F44-3566-4B79-BB47-C7C6E2AA2351}</Project>
       <Name>Xna.Framework.Content.Pipeline</Name>
       <Private>False</Private>
